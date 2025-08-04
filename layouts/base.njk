@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/styles/base.css' | url }}">
+</head>
+<body>
+  <div class="background"></div>
+  <div class="overlay"></div>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="{{ '/blog/' | url }}">Blog</a>
+    <a href="{{ '/about/' | url }}">About Us</a>
+    <a href="{{ '/gallery/' | url }}">Gallery</a>
+  </nav>
+
+  <div class="container">
+    {{ content | safe }}
+  </div>
+
+  <footer>&copy; 2025 Simple Blog</footer>
+</script>
+
+</body>
+</html>
