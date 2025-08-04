@@ -1,7 +1,12 @@
+
 const fs = require("fs");
 const path = require("path");
 
 module.exports = function (eleventyConfig) {
+  const pathPrefix = '/blog/';
+  
+  eleventyConfig.addGlobalData('pathPrefix', pathPrefix);
+
     const pluginRss = require("@11ty/eleventy-plugin-rss");
     eleventyConfig.addPlugin(pluginRss);
     
@@ -32,6 +37,7 @@ module.exports = function (eleventyConfig) {
       input: "content",      // project root
       output: "_site", // build folder
       includes: "../layouts"
-    }
+    },
+    pathPrefix: pathPrefix, // URL prefix for the site
   };
 };

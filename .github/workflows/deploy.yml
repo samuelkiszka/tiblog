@@ -1,33 +1,44 @@
-name: Deploy Eleventy to GitHub Pages
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches: [main]  # or 'master'
+    branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build:
+  # Single deploy job since we're just deploying
+  deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      # This job will run on the latest version of Ubuntu
+      matrix:
+        node-version: [18]  # Specify the Node.js version to use
+
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build Eleventy
-        run: npx eleventy
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
+          github_token: ${{ secrets.GITHUB_TOKEN }}
