@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = function (eleventyConfig) {
-  const pathPrefix = '/blog/';
+  const pathPrefix = '/tiblog/';
   
   eleventyConfig.addGlobalData('pathPrefix', pathPrefix);
 
@@ -15,7 +15,7 @@ module.exports = function (eleventyConfig) {
   );
 
   /*  Static assets, etc.  */
-  eleventyConfig.addPassthroughCopy("assets/**/*");
+  eleventyConfig.addPassthroughCopy("content/assets/**/*");
   eleventyConfig.addPassthroughCopy("layouts/*");
 
   eleventyConfig.addPassthroughCopy("content/gallery/images/*");
